@@ -2,6 +2,7 @@
 import { Controller, ValidateParam, FieldErrors, ValidateError, TsoaRoute } from 'tsoa';
 import { iocContainer } from './ioc';
 import { UsersController } from './controllers/usersController';
+import { UserEventsController } from './controllers/userEventsController';
 
 const models: TsoaRoute.Models = {
     "User": {
@@ -27,6 +28,18 @@ const models: TsoaRoute.Models = {
         "properties": {
             "id": { "dataType": "double", "required": true },
             "status": { "ref": "UserStatus", "required": true },
+        },
+    },
+    "UserEventType": {
+        "enums": ["CREATE", "UPDATE-STATUS"],
+    },
+    "UserEvent": {
+        "properties": {
+            "userEventId": { "dataType": "double" },
+            "eventType": { "ref": "UserEventType", "required": true },
+            "eventData": { "dataType": "any", "required": true },
+            "userId": { "dataType": "double", "required": true },
+            "created": { "dataType": "datetime" },
         },
     },
 };
@@ -105,6 +118,24 @@ export function RegisterRoutes(app: any) {
 
 
             const promise = controller.changeOfStatus.apply(controller, validatedArgs);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/UserEvents',
+        function(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = iocContainer.get<UserEventsController>(UserEventsController);
+
+
+            const promise = controller.getAll.apply(controller, validatedArgs);
             promiseHandler(controller, promise, response, next);
         });
 

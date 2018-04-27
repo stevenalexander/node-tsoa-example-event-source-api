@@ -5,6 +5,7 @@ import {RegisterRoutes} from './routes'
 
 // controllers need to be referenced in order to get crawled by the generator
 import './controllers/usersController'
+import './controllers/userEventsController'
 
 const app = express()
 app.use('/docs', express.static(__dirname + '/swagger-ui'))

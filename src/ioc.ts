@@ -9,6 +9,11 @@ const iocContainer = new Container()
 let knex: Knex = Knex(development)
 iocContainer.bind<Knex>('knex').toConstantValue(knex)
 
+// Needed to make controller injectable for extended Singleton class
+import { Controller } from 'tsoa'
+import { decorate, injectable } from 'inversify'
+decorate(injectable(), Controller )
+
 const provide = makeProvideDecorator(iocContainer)
 const fluentProvider = makeFluentProvideDecorator(iocContainer)
 

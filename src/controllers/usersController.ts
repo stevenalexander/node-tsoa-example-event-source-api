@@ -6,10 +6,6 @@ import { UserGetAllQuery } from '../services/query/userGetAllQuery'
 import { UserGetQuery } from '../services/query/userGetQuery'
 import { User, UserCreationRequest, UserChangeOfStatusRequest } from 'tsoa-example-models'
 
-// Needed to make controller injectable for extended Singleton class
-import { decorate, injectable } from 'inversify'
-decorate(injectable(), Controller )
-
 @Route('Users')
 @provideSingleton(UsersController)
 export class UsersController extends Controller {
