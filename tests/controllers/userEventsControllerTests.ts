@@ -4,7 +4,7 @@ import '../../src/ioc'
 import { mock, instance, when, verify } from 'ts-mockito'
 import { UserCreationRequest } from 'tsoa-example-models'
 import { UserEventsGetAllQuery } from '../../src/services/query/userEventsGetAllQuery'
-import { UserEventsController } from '../../src/controllers/UserEventsController'
+import { UserEventsController } from '../../src/controllers/userEventsController'
 import { UserEvent } from '../../src/services/userEvent'
 
 describe('UserEventsController', () => {
